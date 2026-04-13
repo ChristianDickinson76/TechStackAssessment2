@@ -75,7 +75,8 @@ Bootstrap 5 *(Bootstrap Team, 2024)*
 - Flask *(Flask, 2010)*
 
 ### Version Control
-Git + GitHub Classroom Repo – *See **Version Control***
+Git + GitHub Classroom Repo – *See **Below***
+https://github.com/ChristianDickinson76/TechStackAssessment2
 (Github. (2013). GitHub. GitHub. https://github.com)
 
 ## Project Overview
