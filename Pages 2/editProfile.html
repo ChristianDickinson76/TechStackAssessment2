@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Edit Profile</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="./assets/css/styles.css">
+  <style>
+    .profile-pic-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #007bff;
+      margin: 0 auto 20px;
+      display: block;
+    }
+    .profile-pic-circle.hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body> 
+
+<div class="mt-1 p-2 bg-primary text-white d-flex align-items-center">
+  <div class="flex-grow-1 text-center justify-content-center">
+    <h1>Skill Hub</h1>
+    <p>Grow, together.</p>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <ul class="navbar-nav w-100 d-flex justify-content-evenly flex-wrap">
+      <li class="nav-item"><a class="nav-link" href="/landing">Home</a></li>
+      <li class="nav-item"><a class="nav-link active" href="/profile">Profile</a></li>
+      <li class="nav-item"><a class="nav-link" href="/support">Help</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 class="mb-4 text-center">Edit Profile</h2>
+
+      <form action="/api/resources/create" method="post" enctype="multipart/form-data">
+        
+        <div class="mb-3">
+          <label for="fullname" class="form-label">Full Name</label>
+          <input id="fullname" name="fullname" type="text" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="bio" class="form-label">Bio</label>
+          <textarea id="bio" name="bio" rows="4" class="form-control" placeholder="Tell us about yourself"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="hobbies" class="form-label">Hobbies / Interests (comma-separated)</label>
+          <input id="hobbies" name="hobbies" type="text" class="form-control" placeholder="e.g. AI, Coding, Football">
+        </div>
+
+        <div class="mb-3">
+          <label for="education" class="form-label">Education</label>
+          <input id="education" name="education" type="text" class="form-control" placeholder="e.g. Computer Science @ University">
+        </div>
+
+        <div class="mb-3">
+          <label for="favoriteFood" class="form-label">Favourite Food</label>
+          <input id="favoriteFood" name="favoriteFood" type="text" class="form-control">
+        </div>
+
+        <div class="mb-3">
+          <label for="profileImage" class="form-label">Profile Picture</label>
+          
+          <div class="text-center mb-3">
+            <img id="profilePreview" class="profile-pic-circle hidden" alt="Profile Picture">
+          </div>
+
+          <div class="input-group">
+            <input id="profileImage" name="profileImage" type="file" class="form-control" accept=".png,.jpg,.jpeg,.gif,.webp">
+            <label class="input-group-text bg-success text-white" for="profileImage" style="cursor:pointer;">
+              Choose Image
+            </label>
+          </div>
+          <small class="text-muted">Accepted formats: PNG, JPG, JPEG, GIF, WebP. Max 5MB</small>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-success">Save Changes</button>
+          <a href="/profile" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+
+      <form action="/profile/delete" method="post" class="mt-4"
+            onsubmit="return confirm('Are you sure? This cannot be undone.');">
+        <button type="submit" class="btn btn-danger">Delete Account</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const fileInput = document.getElementById('profileImage');
+  const preview = document.getElementById('profilePreview');
+
+  // Preview image before upload
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        preview.src = event.target.result;
+        preview.classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Load existing profile data
+  fetch('/api/profile')
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (!data) return;
+      document.getElementById('fullname').value = data.fullname || '';
+      document.getElementById('bio').value = data.bio || '';
+      document.getElementById('hobbies').value = (data.hobbies || []).join(', ');
+      document.getElementById('education').value = data.education || '';
+      document.getElementById('favoriteFood').value = data.favoriteFood || '';
+      
+      if (data.profileImage) {
+        preview.src = data.profileImage;
+        preview.classList.remove('hidden');
+      }
+    })
+    .catch(err => console.error('Error loading profile:', err));
+</script>
+
+</body>
+
+<footer>
+  <p>Â© 2025 Skill Hub. All rights reserved.</p>
+</footer>
+
+<script src="./assets/js/common.js"></script>
+
+</html>

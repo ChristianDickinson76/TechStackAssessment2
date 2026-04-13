@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Profile Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+
+<body> 
+  <!-- Page purpose: Landing page for browsing hobby categories and navigating to resource feeds.
+       Data handled: Reads latest resource preview from GET /api/resources/latest?limit=1.
+       No form submission on this page. -->
+<div class="mt-1 p-2 bg-primary text-white d-flex align-items-center">
+  <!-- Title centered across the screen -->
+  <div class="flex-grow-1 text-center justify-content-center">
+    <h1>Skill Hub</h1>
+    <p>Grow, together.</p>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <ul class="navbar-nav w-100 d-flex justify-content-evenly flex-wrap">
+      <li class="nav-item">
+        <a class="nav-link active" href="/landing">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/profile">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/support">Help</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+    <div class="main-body">
+
+          <!-- /Breadcrumb -->
+    
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              
+              <!-- Search -->
+              <div class="row mb-3">
+                <div class="col-12">
+                  <div class="input-group">
+                    <span class="input-group-text" id="searchLabel">Search</span>
+                    <input type="search" class="form-control" id="topicSearch"
+                      placeholder="Search topics (e.g., Coding, Football, Cooking, AI Tools)"
+                      aria-label="Search topics" aria-describedby="searchLabel">
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-start">
+                    <h4>Recent Post that may Interest You!</h4>
+                    <div id="recentPostsTile" class="card mt-3 w-100">
+                      <div class="card-body text-start align-items-center">
+                        <p class="text-muted mb-0">Loading latest resources...</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+
+              <div class="row gutters-sm">
+                <div class="col-sm-6 mb-3 text-center topic-card">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6>AI Tools</h6>
+                      <img src="https://picsum.photos/800/400" alt="AI Tools" class="card-img-fill">
+                      <a href="/aitools" class="stretched-link" aria-label="Open AI Tools"></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 mb-3 text-center topic-card">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6>Coding</h6>
+                      <img src="https://picsum.photos/800/400" alt="Coding" class="card-img-fill">
+                      <a href="/coding" class="stretched-link" aria-label="Open Coding"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row gutters-sm">
+                <div class="col-sm-6 mb-3 text-center topic-card">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6>Football</h6>
+                      <img src="https://picsum.photos/800/400" alt="Football" class="card-img-fill">
+                      <a href="/football" class="stretched-link" aria-label="Open Football"></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 mb-3 text-center topic-card">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6>Cooking</h6>
+                      <img src="https://picsum.photos/800/400" alt="Cooking" class="card-img-fill">
+                      <a href="/cooking" class="stretched-link" aria-label="Open Cooking"></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+
+</body>
+
+<footer>
+  <p>Â© 2025 Skill Hub. All rights reserved.</p>
+</footer>
+<script src="./assets/js/common.js"></script>
+<script>
+  /**
+   * Purpose: Load the most recent resource and render it in the landing tile.
+   * Data handled:
+   * - Input: none (uses fixed endpoint query limit=1)
+   * - API response: [{ title, description, image, link, hobby }]
+   * - Output: updates #recentPostsTile innerHTML
+   */
+  async function loadLatestResources() {
+    const res = await fetch("/api/resources/latest?limit=1");
+    const list = await res.json();
+    const tile = document.getElementById("recentPostsTile");
+
+    tile.innerHTML = list.length
+      ? list.map(r => `
+          <div class="card-body text-start align-items-center">
+            ${r.image ? `<img src="${r.image}" alt="Post image" class="img-fluid rounded mb-2">` : ""}
+            <h6>${r.title || ""}</h6>
+            <p class="text-secondary mb-1">${(r.description || "").substring(0, 140)}</p>
+            ${r.link ? `<a href="${r.link}" target="_blank" rel="noopener">Visit link</a>` : ""}
+            <small class="text-muted d-block mt-1">From ${r.hobby || "a hobby"}</small>
+          </div>
+        `).join("")
+      : '<div class="card-body"><p class="text-muted mb-0">No recent resources yet.</p></div>';
+  }
+
+  // Purpose: Initial page load fetch for latest-resource preview tile.
+  loadLatestResources();
+</script>
+
+</html>
+
