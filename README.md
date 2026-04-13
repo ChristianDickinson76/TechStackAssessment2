@@ -296,15 +296,16 @@ This data would have to be kept secure, such as being encrypted on a remote serv
 
 ## Risk Assessment
 
--# Risk Assessment
+| Risk | Potential Impact | Containment / Mitigation Strategy | Developed in this project? |
+| --- | --- | --- | --- |
+| Unauthorised access to user accounts | Account takeover, tampering with profile data, or misuse of protected actions | Protect routes with session-based access control, require authentication before sensitive actions, and hash passwords before storage | Yes |
+| Malicious or invalid user input | Broken records, unsafe links, upload abuse, or injection-style attacks | Validate form fields on the server, restrict URL format, limit text length, and reject unsupported file types | Yes |
+| Unsafe file uploads | Malware upload, file overwrite, or abuse of storage space | Restrict uploads to approved image extensions, enforce a size limit, and generate safe unique filenames | Yes |
+| Database or connection failure | Pages fail to load or data cannot be saved | Use environment-based configuration, handle errors cleanly, and keep a seeded test dataset for recovery and testing | Mostly |
+| Data loss or corruption | Missing user content, broken pages, or inconsistent records | Back up the database regularly, keep seed data, and test schema changes before applying them to live data | Mostly |
+| Session tampering or expired logins | Users lose access unexpectedly or gain invalid access | Keep the session secret in environment configuration, clear sessions on logout, and force re-authentication for protected routes | Mostly |
 
-- Use secure channels of transmission (Such as HTTPS) for webpages.
-- Use hashing and encryption when handling user login/personal details.
-- In the event users lose/forget their login credentials, provide methods for users to recover their accounts, should they lose their credentials or lose the account to malicious individuals.
-- Ensure all data is backed up through multiple formats to reduce risk of data loss.
-
-- As an example of how I have secured the site, I have protected against SQL injection by using input validation in some input fields using html keywords
-![image info](./Images/screenshotValidation.png)
+The strategies already developed in code include password hashing, login verification, route protection, input validation, file extension checks, URL validation, and safe filename generation. These are implemented in the Flask application rather than just described as future intentions, so the current build already contains practical containment measures for the highest-risk areas.
 
 # 2. Technical Architecture and Replication
 
