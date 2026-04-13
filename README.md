@@ -79,7 +79,7 @@ Git + GitHub Classroom Repo – *See **Below***
 https://github.com/ChristianDickinson76/TechStackAssessment2
 (Github. (2013). GitHub. GitHub. https://github.com)
 
-## Project Overview
+## Project Overview/Goal
 
 **Create a platform on which users are able to share passions, hobbies and skills with like-minded learners. I will develop the frontend and the backend.**
 
@@ -89,6 +89,23 @@ They will be able to provide their hobbies and skills to the site, view 'About U
 Users will will have a basic Upvote/Downvote system to rate resources, a simple comment system, and be able to view resources as a guest without signing in.
 
 User's data will be stored in a database. This includes the details they have inputted, username and passwords (Which are hashed for security). Furthermore, resources will be saved in the database, including images, links, titles, description, upvotes and downvotes and comments.
+
+## Real World Applications
+
+This site is designed as an education social media in which users can share resources, categorised into different hobbies for easy searching. Users will come to the site if they are interested in discusssion and learning more about different hobbies, with learning driven by user engagement.
+
+Similar sites include Reddit and Nebula.
+
+| Feature | Skill Hub | Reddit | Nebula |
+| --- | --- | --- | --- |
+| Main purpose | A hobby-focused learning and resource sharing platform | A broad discussion and content-sharing platform | A creator-focused video and article platform |
+| Content structure | Organised by hobbies and categories for easier discovery | Organised by subreddits and communities | Organised by creator channels and subscriptions |
+| Interaction style | Users can post resources, comment, and vote on helpful content | Users can post, comment, upvote, and discuss a wide range of topics | Users mainly consume premium creator content with limited community interaction |
+| Target audience | People learning hobbies, skills, and practical topics | General internet users interested in communities and discussion | Users looking for curated educational or long-form creator content |
+| Moderation focus | Keeping hobby content relevant, safe, and useful | Community moderation at large scale across many topics | Creator-led content with platform quality control |
+| Content discovery | Search and filter by hobby or topic | Search, subreddit browsing, and algorithmic feeds | Subscription-based discovery and recommendations |
+
+Skill Hub offers a more focused and structured learning experience than Reddit or Nebula because it is designed specifically around hobbies, skills, and practical resource sharing. This makes it easier for users to find relevant content without sorting through unrelated discussions, while also creating a more welcoming environment for people who want to learn, contribute, and build knowledge within a clear topic area.
 
 ## Installation Instructions
 
@@ -407,9 +424,9 @@ Clear feedback for user actions (e.g., form validation messages).
 (https://www.w3.org/WAI/standards-guidelines/wcag/)
 - Use semantic HTML and alt text for images.
 
-## Legal and Ethical Rationale
 
--# Legal and Ethical
+
+## Legal and Ethical Rationale
 
 **GDPR Complience**
 In order to comply with GDPR (GDPR. (2018). General Data Protection Regulation (GDPR). General Data Protection Regulation (GDPR). https://gdpr-info.eu), in the event of the website going live, I would ensure I only collected necessary data on individuals. This data may include;
@@ -658,3 +675,7 @@ W3Schools. (2019). *W3Schools online web tutorials*. https://www.w3schools.com
 World Wide Web Consortium. (n.d.). *Web Content Accessibility Guidelines (WCAG) overview*. https://www.w3.org/WAI/standards-guidelines/wcag/
 
 GitHub. (n.d.). *GitHub Copilot documentation*. https://docs.github.com/en/copilot
+
+MongoDB, Inc. (n.d.). *PyMongo documentation*. https://pymongo.readthedocs.io/en/stable/
+
+Saurabh Kumar. (n.d.). *python-dotenv documentation*. https://saurabh-kumar.com/python-dotenv/
